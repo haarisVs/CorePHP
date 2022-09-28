@@ -21,8 +21,8 @@ class clsInterface
  
           <!-- Favicons -->
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-          <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
-          <script src="script.js"></script>
+          <script src="js/jquery-1.11.1.min.js"></script>
+          <script src="js/script.js"></script>
           <meta name="theme-color" content="#7952b3">
       
       
@@ -62,10 +62,16 @@ class clsInterface
     function main()
     {
         global $objdb;
+
+
         $sReturn = $sOption = '';
         $res = $objdb->Query('select * from channel');
         for($i = 0; $i < $objdb->rows($res) ; $i++)
             $sOption .= '<option value="'.$objdb->Result($res, $i, 'id').'">'.$objdb->Result($res, $i, 'title').'</option>';
+
+
+        $sAlert = $_GET['res'] ?? '';
+        if($sAlert != '') $this->alert($response);
 
         $sReturn = '<div class="row">    
             <div class="col-lg-12 layout-spacing col-md-12">
@@ -73,6 +79,7 @@ class clsInterface
                     <div class="widget-header">
                         <div class="row">
                             <div class="col-xl-12 col-md-12 col-sm-12 col-12">
+                                '.$response.'
                                 <h4>Key Assumptions</h4>
                             </div>
                         </div>
@@ -178,6 +185,12 @@ class clsInterface
         </div>';
 
         return $sReturn;
+    }
+
+
+    function alert(&$response)
+    {
+        $response = '<div class="alert alert-success" role="alert"> Suceess Full Added!..... </div>';
     }
 
 }

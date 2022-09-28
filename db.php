@@ -11,7 +11,6 @@ class db
     function Query($q)
     {
         return $this->conn->query($q);
-        
     }
 
     function Result($result, $RowNumber, $FieldName)
