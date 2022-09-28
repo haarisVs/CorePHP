@@ -62,15 +62,12 @@ class clsInterface
     function main()
     {
         global $objdb;
-        $sReturn = '';
-        $res = $objdb->Query('select * from channels');
+        $sReturn = $sOption = '';
+        $res = $objdb->Query('select * from channel');
         for($i = 0; $i < $objdb->rows($res) ; $i++)
-        {   
-             $aData[$i]['id'] = $objdb->Result($res, $i, 'id');
-             $aData[$i]['title'] = $objdb->Result($res, $i, 'title');
-        }
+            $sOption .= '<option value="'.$objdb->Result($res, $i, 'id').'">'.$objdb->Result($res, $i, 'title').'</option>';
 
-        $sReturn = '<div class="row">
+        $sReturn = '<div class="row">    
             <div class="col-lg-12 layout-spacing col-md-12">
                 <div class="statbox widget box box-shadow">
                     <div class="widget-header">
@@ -81,105 +78,101 @@ class clsInterface
                         </div>
                     </div>
                     <div class="widget-content widget-content-area">
-                        <form id="Key_Assumptions_Input" method="post" action="operations/Update_Key_Assumptions_Input.php">
-                            <input type="hidden" class="form-control" name="user_ID" value="125">
-                            <div class="form-row">
-                                <div class="col-md-2">
-                                    <p class="Channels_d">Channels <a class="file_import" id="pills-profile-tab" data-toggle="modal" data-target="#import_cashflow_actual_year_1">Add Channel</a></p>
+                    <form id="" method="post" action="index.php?&type=send">
+                        <input type="hidden" class="form-control" name="user_ID" value="125">
+                        <div class="form-row">
+                            <div class="col-md-2">
+                                <p class="Channels_d">Channels <a class="file_import" id="pills-profile-tab" data-toggle="modal" data-target="#import_cashflow_actual_year_1">Add Channel</a></p>
+                            </div>
+                            <div class="form-group multiple-form-group input-group">
+                                <div class="col-md-2 padding_left_none">
+                                      <p>Channel</p>
                                 </div>
-                                <div class="col-md-2">
-                                    <p>Product or Unit Name</p>
-                                </div>
-                                <div class="col-md-2">
-                                    <p>First Month Units Sold</p>
-                                </div>
-                                <div class="col-md-1">
+                                <div class="col-md-2 padding_left_none">
+                                    <p>Product or Unit Name</p>                                </div>
+                                <div class="col-md-2 padding_left_none">
+                                     <p>First Month Units Sold</p>                                </div>
+                                <div class="col-md-1 padding_left_none">
                                     <p>Avg Price</p>
                                 </div>
-                                <div class="col-md-2">
-                                    <p>Average COGS</p>
+                                <div class="col-md-2 padding_left_none">
+                                     <p>Average COGS</p>
                                 </div>
-                                <div class="col-md-2">
-                                    <p>Closing Inventory Rate in %</p>
+                                <div class="col-md-2 padding_left_none">
+                                        <p>Closing Inventory Rate in %</p>
                                 </div>
-                                
-                                <div class="form-group multiple-form-group input-group">
-                                    <div class="col-md-2 padding_left_none">
-                                        <select class="form-control" name="Channels[]" id="">
-                                            <option value="Select Fixed Assets">Select Channel</option>
-                                            <option value="Wholesalers" selected="">Wholesalers</option>
-                                            
-                                                                                        <option value="Wholesalers">Wholesalers</option>
-                                            <option value="Retailers">Retailers	</option>
-                                            <option value="E-commerce">E-Commerce</option>
-                                        </select> 
-                                    </div>
-                                    <div class="col-md-2 padding_left_none">
-                                        <input type="text" name="Unit_Name[]" value="Skin Care" class="form-control Revenue_Assumptions_data" placeholder="Product or Unit Name" required="">
-                                    </div>
-                                    <div class="col-md-2 padding_left_none">
-                                        <input type="text" name="First_Month_Unit_Sold[]" value="11" class="form-control Revenue_Assumptions_data" placeholder="First Month Units" required="">
-                                    </div>
-                                    <div class="col-md-1 padding_left_none">
-                                        <span class="input-euro left"><input type="text" name="Average_Price[]" value="100" class="form-control Revenue_Assumptions_data" placeholder="Average Price" required=""></span>
-                                    </div>
-                                    <div class="col-md-2 padding_left_none">
-                                        <span class="input-euro left"><input type="text" name="Average_COGS[]" value="20" class="form-control Revenue_Assumptions_data" placeholder="Average COGS" required=""></span>
-                                    </div>
-                                    <div class="col-md-2 padding_left_none">
-                                        <span class="input-per right"><input type="text" name="Closing_Inventory[]" value="5" class="form-control Revenue_Assumptions_data" placeholder="Closing Inventory Rate in %" required=""></span>
-                                    </div>
-                                    <div class="col-md-1 padding_left_none">
-                                        <button type="button" class="btn btn-success btn-add btn_add_text_row">+</button>
-                                    </div>
-                                </div>
+                            </div>
+                            <div class="form-group multiple-form-group input-group">
+                            <div class="col-md-2 padding_left_none">
+                          
+                            <select class="form-control" name="Channels[]" id="">
+                                    <option value="Select Fixed Assets">Select Channel</option>
+                                   '.$sOption.'
+                                </select> 
+                            </div>
+                            <div class="col-md-2 padding_left_none">
+                                <input type="text" name="Unit_Name[]" value="" class="form-control Revenue_Assumptions_data" placeholder="Product or Unit Name" required="">
+                            </div>
+                            <div class="col-md-2 padding_left_none">
+                                <input type="text" name="First_Month_Unit_Sold[]" value="" class="form-control Revenue_Assumptions_data" placeholder="First Month Units" required="">
+                            </div>
+                            <div class="col-md-1 padding_left_none">
+                                <span class="input-euro left"><input type="text" name="Average_Price[]" value="" class="form-control Revenue_Assumptions_data" placeholder="Average Price" required=""></span>
+                            </div>
+                            <div class="col-md-2 padding_left_none">
+                                <span class="input-euro left"><input type="text" name="Average_COGS[]" value="" class="form-control Revenue_Assumptions_data" placeholder="Average COGS" required=""></span>
+                            </div>
+                            <div class="col-md-2 padding_left_none">
+                                <span class="input-per right"><input type="text" name="Closing_Inventory[]" value="" class="form-control Revenue_Assumptions_data" placeholder="Closing Inventory Rate in %" required=""></span>
+                            </div>
+                            <div class="col-md-1 padding_left_none">
+                                <button type="button" class="btn btn-success btn-add btn_add_text_row">+</button>
                             </div>
                         </div>
-                            <hr>
-                            <h4 class="mb-4">Growth Rates</h4>
-                            <div class="form-row">
-                                <label for="colFormLabelSm" class="col-md-2 col-formlabel col-form-label-sm">Year 1
-                                    Growth Rate %</label>
-                                <div class="col-md-3">
-                                    <span class="input-per right"><input type="text" name="year_1" class="form-control" value="2" id="colFormLabelSm" placeholder="Enter Year 1 Growth Rate" required=""></span>
-                                </div>
+                        </div>
+                         </div>
+                        <hr>
+                        <h4 class="mb-4">Growth Rates</h4>
+                        <div class="form-row">
+                            <label for="colFormLabelSm" class="col-md-2 col-formlabel col-form-label-sm">Year 1
+                                Growth Rate %</label>
+                            <div class="col-md-3">
+                                <span class="input-per right"><input type="text" name="year_1" class="form-control" value="" id="colFormLabelSm" placeholder="Enter Year 1 Growth Rate" required=""></span>
                             </div>
-                            <div class="form-row">
-                                <label for="colFormLabelSm" class="col-md-2 col-formlabel col-form-label-sm">Year 2
-                                    Growth Rate %</label>
-                                <div class="col-md-3">
-                                    <span class="input-per right"> <input type="text" name="year_2" class="form-control" value="2" id="colFormLabelSm" placeholder="Enter Year 2 Growth Rate" required=""> </span>
-                                </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="colFormLabelSm" class="col-md-2 col-formlabel col-form-label-sm">Year 2
+                                Growth Rate %</label>
+                            <div class="col-md-3">
+                                <span class="input-per right"> <input type="text" name="year_2" class="form-control" value="" id="colFormLabelSm" placeholder="Enter Year 2 Growth Rate" required=""> </span>
                             </div>
-                            <div class="form-row">
-                                <label for="colFormLabelSm" class="col-md-2 col-formlabel col-form-label-sm">Year 3
-                                    Growth Rate %</label>
-                                <div class="col-md-3">
-                                    <span class="input-per right"> <input type="text" name="year_3" class="form-control" value="2" id="colFormLabelSm" placeholder="Enter Year 3 Growth Rate" required=""></span>
-                                </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="colFormLabelSm" class="col-md-2 col-formlabel col-form-label-sm">Year 3
+                                Growth Rate %</label>
+                            <div class="col-md-3">
+                                <span class="input-per right"> <input type="text" name="year_3" class="form-control" value="" id="colFormLabelSm" placeholder="Enter Year 3 Growth Rate" required=""></span>
                             </div>
-                            <div class="form-row">
-                                <label for="colFormLabelSm" class="col-md-2 col-formlabel col-form-label-sm">Year 4
-                                    Growth Rate %</label>
-                                <div class="col-md-3">
-                                    <span class="input-per right"> <input type="text" name="year_4" class="form-control" value="2" id="colFormLabelSm" placeholder="Enter Year 4 Growth Rate" required=""></span>
-                                </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="colFormLabelSm" class="col-md-2 col-formlabel col-form-label-sm">Year 4
+                                Growth Rate %</label>
+                            <div class="col-md-3">
+                                <span class="input-per right"> <input type="text" name="year_4" class="form-control" value="" id="colFormLabelSm" placeholder="Enter Year 4 Growth Rate" required=""></span>
                             </div>
-                            <div class="form-row">
-                                <label for="colFormLabelSm" class="col-md-2 col-formlabel col-form-label-sm">Year 5
-                                    Growth Rate %</label>
-                                <div class="col-md-3">
-                                    <span class="input-per right"> <input type="text" name="year_5" class="form-control" value="2" id="colFormLabelSm" placeholder="Enter Year 5 Growth Rate" required=""></span>
-                                </div>
+                        </div>
+                        <div class="form-row">
+                            <label for="colFormLabelSm" class="col-md-2 col-formlabel col-form-label-sm">Year 5
+                                Growth Rate %</label>
+                            <div class="col-md-3">
+                                <span class="input-per right"> <input type="text" name="year_5" class="form-control" value="" id="colFormLabelSm" placeholder="Enter Year 5 Growth Rate" required=""></span>
                             </div>
-                            <hr>
-                            
-
-
-                            <button class="btn btn-gradient-danger mb-4 mt-3" id="submit" type="submit">Save Key
-                                Assumptions</button>
-                        </form>
-                    </div>
+                        </div>
+                        <hr>
+                        <button class="btn btn-primary mb-4 mt-3" id="submit" type="submit">Save Key
+                            Assumptions</button>
+                    </form>
+                </div>
                 </div>
             </div>
         </div>';
